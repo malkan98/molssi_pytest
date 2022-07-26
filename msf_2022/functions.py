@@ -1,9 +1,8 @@
 """Provide the primary functions."""
-import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
 
 def canvas(with_attribution=True):
@@ -50,10 +49,10 @@ def open_pdb(f_loc):
         data = f.readlines()
     c = []
     sym = []
-    for l in data:
-        if "ATOM" in l[0:6] or "HETATM" in l[0:6]:
-            sym.append(l[76:79].strip())
-            c2 = [float(x) for x in l[30:55].split()]
+    for line in data:
+        if "ATOM" in line[0:6] or "HETATM" in line[0:6]:
+            sym.append(line[76:79].strip())
+            c2 = [float(x) for x in line[30:55].split()]
             c.append(c2)
     coords = np.array(c)
     return sym, coords
